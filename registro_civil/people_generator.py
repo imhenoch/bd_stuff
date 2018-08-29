@@ -46,7 +46,6 @@ def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
         dad_lastname = aux_dad_lastname
     mom_lastname = choice(last_names)
     date = generate_date(aux_date)
-    # print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" % { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': datetime.fromtimestamp(date).strftime('%Y-%m-%d')} )
 
     counter += 1
 
@@ -82,8 +81,6 @@ def generate_sibling(dad_lastname, mom_lastname, aux_date, dad, mom):
 
     counter += 1
 
-    # print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" % { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': datetime.fromtimestamp(date).strftime('%Y-%m-%d')} )
-
 def generate_similar_date(date):
     tmp_date = datetime.fromtimestamp(date).date()
     final_date = tmp_date.replace(year = tmp_date.year + 5, month = tmp_date.month, day = 1)
@@ -101,7 +98,7 @@ def generate_date(date = 0):
     return rnd_date
 
 def insert_person(name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender):
-    # cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" % { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': date} )
     cur.execute("INSERT into persona (nombre, apaterno, amaterno, nacimiento, id_padre, id_madre, sexo) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id_persona;",
                 (name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender))
     return cur.fetchone()[0]

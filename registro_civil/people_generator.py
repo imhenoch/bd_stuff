@@ -2,6 +2,7 @@ from random import choice, randint
 import sys
 from datetime import datetime, date
 import time
+import psycopg2
 
 genders = ['H', 'M']
 female_names = []
@@ -21,6 +22,9 @@ for name in open('male_names.dictionary'):
 for name in open('last_names.dictionary'):
     last_names.append(name.rstrip('\n'))
 
+
+conn = psycopg2.connect("dbname=test user=postgres password=123")
+cur = conn.cursor()
 
 
 def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
@@ -94,3 +98,5 @@ while counter < people:
     # print("----------------------- NEW FAMILY TREE HERE -----------------------")
     generate_person(None, None, 0, 90)
     # print(counter)
+cur.close()
+conn.close()

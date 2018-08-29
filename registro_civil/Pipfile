@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 name = "pypi"
 
 [packages]
+"psycopg2" = "*"
 
 [requires]
 python_version = "3.5"

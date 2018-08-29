@@ -57,8 +57,6 @@ def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
     statistic = randint(0, 100)
     if statistic < prob:
         mom = generate_person(mom_lastname, 'M', date, prob - 15)
-    if counter >= people:
-        return None
     id = insert_person(name, dad_lastname, mom_lastname, datetime.fromtimestamp(date).strftime('%Y-%m-%d'), dad, mom, gender)
     while True:
         statistic = randint(0, 100)
@@ -101,7 +99,8 @@ def insert_person(name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender
     print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" % { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': date} )
     cur.execute("INSERT into persona (nombre, apaterno, amaterno, nacimiento, id_padre, id_madre, sexo) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id_persona;",
                 (name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender))
-    return cur.fetchone()[0]
+    id = cur.fetchone()[0]
+    return id
 
 while counter < people:
     # print("----------------------- NEW FAMILY TREE HERE -----------------------")

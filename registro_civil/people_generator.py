@@ -106,5 +106,6 @@ while counter < people:
     # print("----------------------- NEW FAMILY TREE HERE -----------------------")
     generate_person(None, None, 0, 90)
     # print(counter)
+conn.commit()
 cur.close()
 conn.close()

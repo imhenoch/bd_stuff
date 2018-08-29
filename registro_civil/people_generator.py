@@ -1,6 +1,7 @@
 from random import choice, randint
 import sys
 from datetime import datetime, date
+import time
 
 genders = ['H', 'M']
 female_names = []
@@ -42,18 +43,40 @@ def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
 
     statistic = randint(0, 100)
     if statistic < prob:
-        dad = generate_person(dad_lastname, 'H', date, prob - 25)
+        dad = generate_person(dad_lastname, 'H', date, prob - 15)
     statistic = randint(0, 100)
     if statistic < prob:
-        mom = generate_person(mom_lastname, 'M', date, prob - 25)
+        mom = generate_person(mom_lastname, 'M', date, prob - 15)
+    while True:
+        statistic = randint(0, 100)
+        if statistic < prob / 3:
+            generate_sibling(dad_lastname, mom_lastname, date)
+        else:
+            break
     return prob
+
+def generate_sibling(dad_lastname, mom_lastname, aux_date):
+    gender = choice(genders)
+    name = choice(male_names) if gender == 'H' else choice(female_names)
+    date = generate_similar_date(aux_date)
+    print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" %
+    { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': datetime.fromtimestamp(date).strftime('%Y-%m-%d')} )
+
+def generate_similar_date(date):
+    tmp_date = datetime.fromtimestamp(date).date()
+    final_date = tmp_date.replace(year = tmp_date.year + 10)
+    initial_date = final_date.replace(year = final_date.year - 10)
+    return randint(time.mktime(initial_date.timetuple()), time.mktime(final_date.timetuple()))
 
 def generate_date(date = 0):
     if date == 0:
         rnd_date = randint(most_ancient_date, most_recent_date)
     else:
-        rnd_date = randint(most_ancient_date, date)
+        tmp_date = datetime.fromtimestamp(date).date()
+        final_date = tmp_date.replace(year = tmp_date.year - 20)
+        initial_date = final_date.replace(year = final_date.year - 10)
+        rnd_date = randint(time.mktime(initial_date.timetuple()), time.mktime(final_date.timetuple()))
     return rnd_date
 
 # for i, number in enumerate(range(people, 0, -1), 1):
-generate_person(None, None, 0, 100)
+generate_person(None, None, 0, 90)

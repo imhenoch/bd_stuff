@@ -96,7 +96,7 @@ def generate_date(date = 0):
     return rnd_date
 
 def insert_person(name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender):
-    print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" % { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': date} )
+    # print("%(name)s %(dad_lastname)s %(mom_lastname)s - %(gender)s, %(date)s" % { 'name': name, 'dad_lastname': dad_lastname, 'mom_lastname': mom_lastname, 'gender': gender, 'date': date} )
     cur.execute("INSERT into persona (nombre, apaterno, amaterno, nacimiento, id_padre, id_madre, sexo) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id_persona;",
                 (name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender))
     id = cur.fetchone()[0]

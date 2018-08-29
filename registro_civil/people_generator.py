@@ -51,6 +51,8 @@ def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
     counter += 1
 
     statistic = randint(0, 100)
+    dad = 0
+    mom = 0
     if statistic < prob:
         dad = generate_person(dad_lastname, 'H', date, prob - 15)
     statistic = randint(0, 100)

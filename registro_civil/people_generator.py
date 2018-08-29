@@ -31,7 +31,7 @@ def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
     global counter
 
     if counter >= people:
-        return -1
+        return None
 
     gender = ""
     if aux_gender == None:
@@ -56,15 +56,18 @@ def generate_person(aux_dad_lastname, aux_gender, aux_date, prob):
     statistic = randint(0, 100)
     if statistic < prob:
         mom = generate_person(mom_lastname, 'M', date, prob - 15)
+    if counter >= people:
+        return None
+    id = insert_person(name, dad_lastname, mom_lastname, datetime.fromtimestamp(date).strftime('%Y-%m-%d'), dad, mom, gender)
     while True:
         statistic = randint(0, 100)
         if statistic < prob / 3:
-            generate_sibling(dad_lastname, mom_lastname, date)
+            generate_sibling(dad_lastname, mom_lastname, date, dad, mom)
         else:
             break
-    return prob
+    return id
 
-def generate_sibling(dad_lastname, mom_lastname, aux_date):
+def generate_sibling(dad_lastname, mom_lastname, aux_date, dad, mom):
     global counter
 
     if counter >= people:
@@ -73,6 +76,7 @@ def generate_sibling(dad_lastname, mom_lastname, aux_date):
     gender = choice(genders)
     name = choice(male_names) if gender == 'H' else choice(female_names)
     date = generate_similar_date(aux_date)
+    insert_person(name, dad_lastname, mom_lastname, datetime.fromtimestamp(date).strftime('%Y-%m-%d'), dad, mom, gender)
 
     counter += 1
 
@@ -93,6 +97,12 @@ def generate_date(date = 0):
         initial_date = final_date.replace(year = final_date.year - 10, month = final_date.month, day = 1)
         rnd_date = randint(time.mktime(initial_date.timetuple()), time.mktime(final_date.timetuple()))
     return rnd_date
+
+def insert_person(name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender):
+    # cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    cur.execute("INSERT into persona (nombre, apaterno, amaterno, nacimiento, id_padre, id_madre, sexo) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id_persona;",
+                (name, dad_lastname, mom_lastname, date, dad_id, mom_id, gender))
+    return cur.fetchone()[0]
 
 while counter < people:
     # print("----------------------- NEW FAMILY TREE HERE -----------------------")

@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION insert_remote_employee() RETURNS trigger AS $$
+BEGIN
+IF (TG_OP='INSERT') THEN
+perform dblink_connect('host=kwikemart dbname=kwikemart user=gerente password=pass');
+perform dblink_exec('insert into employee (id_employee, first_name, last_name) values
+('||NEW.id_empleado||', '''||NEW.nombre||''', '''||CONCAT(NEW.apaterno, ' ', NEW.amaterno)||''')');
+perform dblink_disconnect();
+END IF;
+RETURN NEW;
+END; $$
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER insert_remote_employee_trigger
+  AFTER INSERT ON empleado
+  FOR EACH ROW EXECUTE PROCEDURE
+  insert_remote_employee();

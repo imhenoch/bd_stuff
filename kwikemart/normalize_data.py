@@ -34,3 +34,12 @@ with open('tmp_products') as f:
                 file_products.write("%s\n" % row[5])
             except IndexError:
                 continue
+
+file = open('stores.dictionary', 'w')
+with open('tmp_stores') as f:
+    for i, row in enumerate(csv.reader(f, delimiter=',')):
+        if i != 0:
+            try:
+                file.write("%s\n" % row[0])
+            except IndexError:
+                continue

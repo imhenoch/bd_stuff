@@ -12,6 +12,9 @@ curl --silent http://www.opendata500.com/us/download/us_companies.csv -o tmp_com
 echo 'Downloading products'
 curl --silent  https://community.watsonanalytics.com/wp-content/uploads/2015/08/WA_Sales_Products_2012-14.csv -o tmp_products
 
+echo 'Dowloading stores'
+curl --silent https://data.baltimorecity.gov/api/views/uuwk-975y/rows.csv -o tmp_stores
+
 echo 'Normalizing data'
 python3 normalize_data.py
 rm tmp*

@@ -9,6 +9,9 @@ gzip -d tmp_last_names.gz
 echo 'Downloading companies'
 curl --silent http://www.opendata500.com/us/download/us_companies.csv -o tmp_companies
 
+echo 'Downloading products'
+curl --silent  https://community.watsonanalytics.com/wp-content/uploads/2015/08/WA_Sales_Products_2012-14.csv -o tmp_products
+
 echo 'Normalizing data'
 python3 normalize_data.py
 rm tmp*

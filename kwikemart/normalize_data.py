@@ -24,14 +24,12 @@ with open('tmp_companies') as f:
             except IndexError:
                 continue
 
-file_products = open('products.dictionary', 'w')
-file_categories = open('categories.dictionary', 'w')
+file = open('products.dictionary', 'w')
 with open('tmp_products') as f:
     for i, row in enumerate(csv.reader(f, delimiter=',')):
         if i != 0:
             try:
-                file_categories.write("%s\n" % row[4])
-                file_products.write("%s\n" % row[5])
+                file.write("%s,%s\n" % (row[4], row[5]))
             except IndexError:
                 continue
 
@@ -41,5 +39,14 @@ with open('tmp_stores') as f:
         if i != 0:
             try:
                 file.write("%s\n" % row[0])
+            except IndexError:
+                continue
+
+file = open('cities.dictionary', 'w')
+with open('tmp_cities') as f:
+    for i, row in enumerate(csv.reader(f, delimiter=',')):
+        if i != 0:
+            try:
+                file.write("%s,%s\n" % (row[0], row[2]))
             except IndexError:
                 continue

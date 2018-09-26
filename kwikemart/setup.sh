@@ -15,6 +15,9 @@ curl --silent  https://community.watsonanalytics.com/wp-content/uploads/2015/08/
 echo 'Dowloading stores'
 curl --silent https://data.baltimorecity.gov/api/views/uuwk-975y/rows.csv -o tmp_stores
 
+echo 'Downloading cities'
+curl --silent https://pkgstore.datahub.io/core/world-cities/world-cities_csv/data/6cc66692f0e82b18216a48443b6b95da/world-cities_csv.csv -o tmp_cities
+
 echo 'Normalizing data'
 python3 normalize_data.py
 rm tmp*

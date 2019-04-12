@@ -14,8 +14,10 @@ flush privileges;
 -- On admin database
 create table usuarios(
     id_usuario integer primary key auto_increment,
-    email varchar(100) not null,
-    contrasena varchar(32) not null
+    email varchar
+(100) not null,
+    contrasena varchar
+(32) not null
 );
 
 -- In the file /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -23,7 +25,8 @@ create table usuarios(
 -- bind-address            = 0.0.0.0
 
 insert into
-    usuarios (email, contrasena)
+    usuarios
+    (email, contrasena)
 values
     ('luislao@itcelaya.edu.mx', md5('pass')),
     ('yo@yo.yo', md5('pass'));
@@ -37,11 +40,14 @@ grant usage on foreign data wrapper postgres_fdw to gerente;
 
 create server remote_rh
     foreign data wrapper postgres_fdw
-    options (host 'rh', port '5432', dbname 'rh');
+    options
+(host 'rh', port '5432', dbname 'rh');
 
 create user mapping for gerente
-    server remote_rh
-    options (user 'ejecutivo', password 'pass');
+    server
+remote_rh
+    options
+(user 'ejecutivo', password 'pass');
 
 create schema rh;
 
@@ -50,12 +56,14 @@ import foreign schema public
 
 -- To test this
 set schema 'rh';
-\d -- This should show the foreign tables
+\d
+-- This should show the foreign tables
 
-set schema 'public';
+set
+schema 'public';
 
 select
     *
 from
     empleado join rh.personal on id_empleado=id_personal
-    limit 30;
+limit 30;

@@ -1,0 +1,32 @@
+$ export ORACLE_HOME=/home/oracle/app/oracle/product/12.2.0/dbhome_1
+$ export ORACLE_SID=tabd
+
+$ cd $ORACLE_HOME
+$ cd bin
+$ ./lsnrctl start
+$ ./sqlplus /nolog
+
+SQL> connect / as sysdba
+SQL> startup
+
+
+
+Dentro de sql developer
+Crear usuario c##central
+****
+****
+Roles: AUTHENTICATEDUSER, CONNECT, RESOURCE 
+System privileges: All
+Fees: USERS
+SQL: 
+
+alter user 'C##CENTRAL' identified by ****;
+
+
+
+create table example(
+    id int primary key,
+    description varchar2(32)
+);
+
+Migrate everything in postgresql to oracle

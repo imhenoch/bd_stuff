@@ -83,29 +83,30 @@ select * from dbo.factura
 go
 
 select
+    '<?xml version="1.0" encoding="utf-8"?>'::text ||
     '<factura>'::text ||
         '<empresa>'::text ||
             (select empresa from mssql_empresa where empresa_id = 1)::text ||
         '</empresa>'::text ||
         '<sat>'::text ||
-            (select xmlforest(no_factura, sello_digital_emisor, sello_sat) from mssql_factura where id_factura = 5)::text ||
+            (select xmlforest(no_factura, folio_fiscal, sello_digital_emisor, sello_sat) from mssql_factura where id_factura = 5)::text ||
         '</sat>'::text ||
         '<detalle>' ||
-            (select xmlforest(p.producto, tp.cantidad, tp.precio_final)
+            (select xmlagg(rows) from (select xmlforest(p.producto, tp.cantidad, tp.precio_final) as rows
                 from transaccion_producto tp
                 inner join transaccion t on t.id_transaccion = tp.id_transaccion
-                inner join producto p on tp.id_producto = tp.id_producto
-                where t.id_transaccion = 5 limit 1) :: text ||
+               inner join producto p on p.id_producto = tp.id_producto
+               where t.id_transaccion = 5) as queries) ||
         '</detalle>' ||
         '<totales>' ||
-            (select xmlforest(sum(totales.total) as total, sum(totales.iva) as iva, sum(totales.subtotal) as subtotal)
+            (select xmlforest(totales.total, totales.iva, totales.subtotal)
                 from (
-                    select tp.cantidad * tp.precio_final as total, tp.cantidad * tp.precio_final * 0.16 as iva, tp.cantidad * tp.precio_final * 1.16 as subtotal
+                    select sum(tp.precio_final) as total, sum(tp.precio_final)-sum(tp.precio_final)/1.16 as iva, sum(tp.precio_final)/1.16 as subtotal
                         from transaccion_producto tp
                         inner join transaccion t on t.id_transaccion = tp.id_transaccion
                         inner join producto p on tp.id_producto = tp.id_producto
                         where t.id_transaccion = 5
                 ) as totales) :: text ||
         '</totales>' ||
-    '</factura'::text
+    '</factura>'::text
 as xml_test;

@@ -1,7 +1,7 @@
 -- Lab factura
 -- *** Entregables
 -- 1. Representacion XML de un CFDI
--- 2. REpresentacion impresa de un CFDI
+-- 2. Representacion impresa de un CFDI
 -- ***
 -- 
 -- 1. Con Postgresql sacar XML
@@ -94,7 +94,7 @@ INSERT INTO dbo.factura (
     cfdi
 )
 VALUES
-    (5, 'rfc', '2018/04/03', '1', 'sdfasdf', 'asdfasdf', 'fasdfasdf', 'fasdfalskjd', 'G03')
+    (6, 'rfc', '2018/04/03', '2', 'aaa', 'aaa', 'aaa', 'aaa', 'G03')
 GO
 
 select * from dbo.factura

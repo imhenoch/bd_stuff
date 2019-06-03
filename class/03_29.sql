@@ -48,12 +48,21 @@ create foreign table mssql_factura
 (
     id_factura integer,
     rfc varchar,
-    fecha date,
+    fecha varchar,
     no_factura varchar,
     folio_fiscal varchar,
     cadena_original varchar,
     sello_digital_emisor varchar,
-    sello_sat varchar)
+    sello_sat varchar,
+    cfdi varchar)
 server mssql_empresa 
 options
 (table_name 'dbo.factura', row_estimate_method 'showplan_all');
+
+create foreign table mssql_cfdi
+(
+    cfdi varchar,
+    descripcion varchar)
+server mssql_empresa
+options
+(table_name 'dbo.cfdi', row_estimate_method 'showplan_all');

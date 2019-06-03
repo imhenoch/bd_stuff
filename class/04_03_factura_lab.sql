@@ -50,52 +50,29 @@ values
     ('Some random company')
 go
 
-create table dbo.cfdi(
+create table cfdi(
     cfdi varchar(10) not null primary key,
     descripcion varchar(30) not null
 );
 
-insert into dbo.cfdi(
+insert into cfdi(
     cfdi,
     descripcion
 )
 values
     ('G03', 'Gastos en general');
-GO
 
-select * from dbo.cfdi
-GO
-
-create table dbo.factura(
+create table factura(
     id_factura int not null primary key,
     rfc varchar(13) not null,
     fecha date not null,
     no_factura varchar(32),
-    folio_fiscal [NVARCHAR](500) unique,
-    cadena_original [NVARCHAR](500) unique,
-    sello_digital_emisor [NVARCHAR](500) unique,
-    sello_sat [NVARCHAR](500) unique,
+    folio_fiscal varchar(500) unique,
+    cadena_original varchar(500) unique,
+    sello_digital_emisor varchar(500) unique,
+    sello_sat varchar(500) unique,
     cfdi varchar(10) not null references dbo.cfdi(cfdi)
 )
-go
-
-select * from dbo.factura
-go
-
-INSERT INTO dbo.factura (
-    id_factura,
-    rfc,
-    fecha,
-    no_factura,
-    folio_fiscal,
-    cadena_original,
-    sello_digital_emisor,
-    sello_sat,
-    cfdi
-)
-VALUES
-    (6, 'rfc', '2018/04/03', '2', 'aaa', 'aaa', 'aaa', 'aaa', 'G03')
-GO
 
 select * from dbo.factura
 go
@@ -129,6 +106,11 @@ CREATE FOREIGN TABLE admin.cliente(
 SERVER remote_admin
      OPTIONS (dbname 'admin', table_name 'cliente');
 
+
+
+
+
+
 select
     '<?xml version="1.0" encoding="utf-8"?>'::text ||
     '<factura>'::text ||
@@ -138,12 +120,12 @@ select
         '<cliente>'::text ||
             (select xmlforest(c.rfc, c.razon_social, c.domicilio, cfdi.cfdi, cfdi.descripcion)
                 from admin.cliente c
-                inner join mssql_factura f on c.rfc = f.rfc
-                inner join mssql_cfdi cfdi on f.cfdi = cfdi.cfdi
+                inner join admin.factura f on c.rfc = f.rfc
+                inner join admin.cfdi cfdi on f.cfdi = cfdi.cfdi
                 where f.id_factura = 5)::text ||
         '</cliente>'::text ||
         '<sat>'::text ||
-            (select xmlforest(no_factura, folio_fiscal, sello_digital_emisor, sello_sat) from mssql_factura where id_factura = 5)::text ||
+            (select xmlforest(no_factura, folio_fiscal, sello_digital_emisor, sello_sat) from admin.factura where id_factura = 5)::text ||
         '</sat>'::text ||
         '<detalle>' ||
             (select xmlagg(rows) from (select xmlforest(p.producto, tp.cantidad, tp.precio_final) as rows
@@ -178,12 +160,12 @@ begin
                 '<cliente>'::text ||
                     (select xmlforest(c.rfc, c.razon_social, c.domicilio, cfdi.cfdi, cfdi.descripcion)
                         from admin.cliente c
-                        inner join mssql_factura f on c.rfc = f.rfc
-                        inner join mssql_cfdi cfdi on f.cfdi = cfdi.cfdi
+                        inner join admin.factura f on c.rfc = f.rfc
+                        inner join admin.cfdi cfdi on f.cfdi = cfdi.cfdi
                         where f.id_factura = $1)::text ||
                 '</cliente>'::text ||
                 '<sat>'::text ||
-                    (select xmlforest(no_factura, folio_fiscal, sello_digital_emisor, sello_sat) from mssql_factura where id_factura = $1)::text ||
+                    (select xmlforest(no_factura, folio_fiscal, sello_digital_emisor, sello_sat) from admin.factura where id_factura = $1)::text ||
                 '</sat>'::text ||
                 '<detalle>' ||
                     (select xmlagg(rows) from (select xmlforest(p.producto, tp.cantidad, tp.precio_final) as rows
@@ -207,3 +189,50 @@ begin
 end;
 $$
 language plpgsql;
+
+
+
+
+
+-- 1. Check if the given rfc exists
+select
+    count(*)
+from
+    admin.cliente
+where
+    rfc = 'rfc';
+
+-- 1.5. Create client if the rfc doesn't exist
+insert into admin.cliente
+(
+    rfc,
+    razon_social,
+    domicilio
+)
+values
+(
+    'rfc2',
+    'Another Client',
+    'Another address'
+);
+
+-- 2. Obtain cfdi's
+select * from admin.cfdi;
+
+-- 2. Create bill
+insert into admin.factura
+(
+    id_factura,
+    rfc,
+    fecha,
+    no_factura,
+    folio_fiscal,
+    cadena_original,
+    sello_digital_emisor,
+    sello_sat,
+    cfdi
+)
+values
+(
+    5, 'rfc', now(), md5('rfc' || 5), md5('rfc' || 5), md5('rfc' || 5), md5('rfc' || 5), md5('rfc' || 5), 'G03'
+);

@@ -64,3 +64,17 @@ def create_bill():
     cur.close()
     conn.close()
     return jsonify(data)
+
+@app.route('/generate_bill/<int:transaction>', methods=['GET'])
+def generate_bill(transaction):
+    conn = psycopg2.connect("dbname=central user=gerente host=central password=pass")
+    cur = conn.cursor()
+    cur.execute("select factura_xml(%s)", (transaction,))
+    result = cur.fetchone()
+    file = open("factura" + str(transaction) + ".xml", "w+")
+    file.write(result[0])
+    file.close()
+    data = {'result': 'success'}
+    cur.close()
+    conn.close()
+    return jsonify(data)

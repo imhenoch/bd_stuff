@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Bills</string>
+
+    <string name="rfc">RFC</string>
+    <string name="transaction">Transaccion</string>
+    <string name="social">Razon social</string>
+    <string name="address">Domicilio</string>
+    <string name="cfdi">CFDI</string>
+    <string name="next">Continuar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="finish">Finalizar</string>
 </resources>

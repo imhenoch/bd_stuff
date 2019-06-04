@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.github.imhenoch.bills.BuildConfig
 import com.github.imhenoch.bills.R
 import com.github.imhenoch.bills.api.ApiService
 import com.github.imhenoch.bills.data.*
@@ -25,7 +26,7 @@ class BillRegister : Fragment() {
     private val LAST_STAGE = 3
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("http://192.168.1.71:5000")
+            .baseUrl("http://${BuildConfig.IP}:${BuildConfig.PORT}")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

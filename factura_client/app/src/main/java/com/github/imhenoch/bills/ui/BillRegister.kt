@@ -130,8 +130,16 @@ class BillRegister : Fragment() {
             }
 
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
-                Toast.makeText(context!!, "Bill created", Toast.LENGTH_SHORT).show()
-                initState()
+                api.generateBill(bill.trasaction).enqueue(object: Callback<Result> {
+                    override fun onFailure(call: Call<Result>, t: Throwable) {
+                        initState()
+                    }
+
+                    override fun onResponse(call: Call<Result>, response: Response<Result>) {
+                        Toast.makeText(context!!, "Bill created", Toast.LENGTH_LONG).show()
+                        initState()
+                    }
+                })
             }
         })
     }

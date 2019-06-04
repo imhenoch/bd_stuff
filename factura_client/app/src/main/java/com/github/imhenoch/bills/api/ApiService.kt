@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("rfc_exists")
@@ -18,4 +19,7 @@ interface ApiService {
 
     @POST("bill")
     fun createBill(@Body bill: Bill): Call<Result>
+
+    @GET("generate_bill/{transaction}")
+    fun generateBill(@Path("transaction") transaction: Int): Call<Result>
 }

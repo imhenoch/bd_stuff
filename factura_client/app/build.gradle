@@ -16,11 +16,28 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            def ipList = getLocalIPv4()
+            buildConfigField "String", "IP", ipList.empty ? '""' : '"' + ipList.get(0) + '"'
+            buildConfigField "int", "PORT", "5000"
+        }
     }
 
     dataBinding {
         enabled = true
     }
+}
+
+static def getLocalIPv4() {
+    def ip4s = []
+    NetworkInterface.getNetworkInterfaces()
+            .findAll { it.isUp() && !it.isLoopback() && !it.isVirtual() }
+            .each {
+        it.getInetAddresses()
+                .findAll { !it.isLoopbackAddress() && it instanceof Inet4Address }
+                .each { ip4s << it.getHostAddress() }
+    }
+    return ip4s
 }
 
 dependencies {

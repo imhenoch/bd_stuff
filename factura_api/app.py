@@ -3,10 +3,6 @@ import psycopg2
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello():
-    return 'Hello there :D'
-
 @app.route('/rfc_exists', methods=['POST'])
 def rfc_exists():
     json_data = request.get_json()

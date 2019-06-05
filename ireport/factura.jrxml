@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e181e409-ddfd-426e-a92d-08cd1d8cbca2">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="194"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/henoch/Documents/university/semestre10/bd_stuff/ireport/"]]></defaultValueExpression>
 	</parameter>
@@ -14,14 +14,14 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="92" splitType="Stretch">
+		<band height="102" splitType="Stretch">
 			<rectangle radius="5">
-				<reportElement x="0" y="0" width="555" height="79" forecolor="#1976D2" backcolor="#1976D2" uuid="d95499c5-3a00-4e18-839d-f53ef53e9a30"/>
+				<reportElement x="0" y="0" width="555" height="89" forecolor="#1976D2" backcolor="#1976D2" uuid="d95499c5-3a00-4e18-839d-f53ef53e9a30"/>
 			</rectangle>
 			<textField>
-				<reportElement x="16" y="0" width="521" height="79" forecolor="#F5F5F5" backcolor="#F5F5F5" uuid="61637f3d-3c9a-489c-81ce-d51a96860e41"/>
+				<reportElement x="16" y="0" width="521" height="89" forecolor="#F5F5F5" backcolor="#F5F5F5" uuid="61637f3d-3c9a-489c-81ce-d51a96860e41"/>
 				<textElement verticalAlignment="Middle">
-					<font size="40"/>
+					<font size="44"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
 			</textField>
@@ -34,11 +34,16 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="126" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="349" height="125" uuid="416a0978-01f8-45bd-a52e-0d52af5909ef"/>
+				<reportElement x="0" y="0" width="284" height="125" uuid="416a0978-01f8-45bd-a52e-0d52af5909ef"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "factura_cliente.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="295" y="0" width="260" height="125" uuid="8ebd85f1-861f-4009-807d-241e0315de65"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "factura_factura.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
@@ -46,9 +51,15 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="182" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="182" uuid="0fce346b-49cd-433d-9645-ffe33fed018d"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "factura_sat.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="113" splitType="Stretch"/>
 	</summary>
 </jasperReport>

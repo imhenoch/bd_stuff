@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_sat" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f3080ad-e45b-4bce-91f7-5458de3ff3b4">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TRANSACCION" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[100]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    sello_digital_emisor, sello_sat
+from
+    admin.factura
+where
+    id_factura = $P{TRANSACCION}]]>
+	</queryString>
+	<field name="sello_digital_emisor" class="java.lang.String"/>
+	<field name="sello_sat" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="182" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement x="0" y="0" width="555" height="86" forecolor="#1976D2" uuid="1ebb8de3-e404-4ba1-b57f-4536222bb492"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement x="0" y="0" width="555" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="efb6f021-5866-4619-9384-57a0774da23a"/>
+			</rectangle>
+			<textField>
+				<reportElement x="11" y="39" width="532" height="36" forecolor="#212121" uuid="4fb4965c-c149-4c02-9b2f-e94b49757ce9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sello_digital_emisor}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="5">
+				<reportElement x="0" y="96" width="555" height="86" forecolor="#1976D2" uuid="029bbc75-bb0a-48b4-8d72-290091f4d959"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement x="0" y="96" width="555" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="789b0144-3c11-4614-ba4b-3717af8e3470"/>
+			</rectangle>
+			<textField>
+				<reportElement x="11" y="135" width="532" height="36" forecolor="#212121" uuid="935a07ad-a8ab-43cb-b767-5cd45a3e8547"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sello_sat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="29" forecolor="#F5F5F5" uuid="95548909-0f3a-49c5-838f-08c76a709f24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Sello digital emisor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="96" width="555" height="29" forecolor="#F5F5F5" uuid="609f87da-a900-46e7-b222-e595cc817ab5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Sello digital del SAT]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

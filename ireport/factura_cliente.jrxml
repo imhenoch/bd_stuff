@@ -61,13 +61,13 @@ where
 	<detail>
 		<band height="138" splitType="Stretch">
 			<rectangle radius="5">
-				<reportElement x="0" y="0" width="555" height="138" forecolor="#1976D2" uuid="e7e28c7b-ec94-4c42-a06b-a19a9d901118"/>
+				<reportElement x="0" y="0" width="283" height="138" forecolor="#1976D2" uuid="e7e28c7b-ec94-4c42-a06b-a19a9d901118"/>
 			</rectangle>
 			<rectangle radius="5">
-				<reportElement x="0" y="0" width="555" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="a4774783-1b51-4b7c-aa21-2d276263fa31"/>
+				<reportElement x="0" y="0" width="283" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="a4774783-1b51-4b7c-aa21-2d276263fa31"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="29" forecolor="#F5F5F5" uuid="a51fe1bb-db94-469b-bcdd-dd1b1b678269"/>
+				<reportElement x="0" y="0" width="283" height="29" forecolor="#F5F5F5" uuid="a51fe1bb-db94-469b-bcdd-dd1b1b678269"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="20" isStrikeThrough="false"/>
 				</textElement>
@@ -81,7 +81,7 @@ where
 				<text><![CDATA[Nombre o razon social:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="40" width="405" height="20" forecolor="#212121" uuid="1816241c-f905-412a-bf28-1862c3914e27"/>
+				<reportElement x="138" y="40" width="134" height="20" forecolor="#212121" uuid="1816241c-f905-412a-bf28-1862c3914e27"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -95,7 +95,7 @@ where
 				<text><![CDATA[RFC del cliente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="71" width="405" height="20" forecolor="#212121" uuid="8e35d69e-399d-41b6-bd12-bf2325f788f7"/>
+				<reportElement x="138" y="71" width="134" height="20" forecolor="#212121" uuid="8e35d69e-399d-41b6-bd12-bf2325f788f7"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -109,7 +109,7 @@ where
 				<text><![CDATA[Uso CFDI cliente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="105" width="405" height="20" forecolor="#212121" uuid="97e32b35-c129-4861-8e69-9e200e2fd916"/>
+				<reportElement x="138" y="105" width="134" height="20" forecolor="#212121" uuid="97e32b35-c129-4861-8e69-9e200e2fd916"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -118,12 +118,12 @@ where
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

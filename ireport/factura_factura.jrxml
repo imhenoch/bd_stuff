@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_factura" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3c77407d-22e3-4e0e-a98e-4a8d525525e5">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="TRANSACCION" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[100]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    no_factura, folio_fiscal, timeofday() as fecha
+from
+    admin.factura
+where
+    id_factura = $P{TRANSACCION}]]>
+	</queryString>
+	<field name="no_factura" class="java.lang.String"/>
+	<field name="folio_fiscal" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="138" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement x="0" y="73" width="256" height="65" forecolor="#1976D2" uuid="1c001700-a17e-4763-b521-189bc2630945"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement x="0" y="0" width="90" height="65" forecolor="#1976D2" uuid="a2bf4ea3-82b6-405c-b09a-554f70ce11bf"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement x="0" y="0" width="90" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="208f29a1-129e-44d3-a377-c6fc7f374da4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="29" forecolor="#F5F5F5" uuid="aa3bacc0-aca6-49cd-8f57-923abc3b288e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="34" width="70" height="25" forecolor="#212121" uuid="b810b5fa-bc51-40ba-bec5-89427a9711a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="5">
+				<reportElement x="100" y="0" width="156" height="65" forecolor="#1976D2" uuid="3aa1e44e-f3d9-4a3b-879d-4935ce756e4b"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement x="100" y="0" width="156" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="1dab8a21-981f-4303-9ee8-a46da84b4326"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="100" y="0" width="156" height="29" forecolor="#F5F5F5" uuid="3b010726-4371-4efa-a898-34ea38009346"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="113" y="34" width="126" height="25" forecolor="#212121" uuid="805a031e-ad9d-46ea-842f-8859dc638530"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_factura}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="5">
+				<reportElement x="0" y="73" width="256" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="44e848a9-a858-44a0-bc53-14cd6b14d4f1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="73" width="256" height="29" forecolor="#F5F5F5" uuid="d08b3553-0197-4f46-bc68-2ba313153e61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Folio fiscal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="108" width="229" height="25" forecolor="#212121" uuid="52266ec2-46fa-47f3-b268-99258c3b3189"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{folio_fiscal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

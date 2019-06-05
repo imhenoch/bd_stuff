@@ -10,39 +10,18 @@
 		<![CDATA[select empresa from mssql_empresa where empresa_id = $P{EMPRESA}]]>
 	</queryString>
 	<field name="empresa" class="java.lang.String"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band height="90" splitType="Stretch">
+	<columnHeader>
+		<band height="70" splitType="Stretch">
 			<rectangle radius="5">
-				<reportElement x="0" y="0" width="555" height="89" forecolor="#1976D2" backcolor="#1976D2" uuid="7749be94-f97b-435f-aabf-17edc3a4b6ca"/>
+				<reportElement x="1" y="0" width="555" height="70" forecolor="#1976D2" backcolor="#1976D2" uuid="7749be94-f97b-435f-aabf-17edc3a4b6ca"/>
 			</rectangle>
 			<textField>
-				<reportElement x="15" y="0" width="521" height="89" forecolor="#F5F5F5" backcolor="#F5F5F5" uuid="7fcbae97-20dd-4022-b8ab-03a4ef25468d"/>
+				<reportElement x="16" y="0" width="521" height="70" forecolor="#F5F5F5" backcolor="#F5F5F5" uuid="7fcbae97-20dd-4022-b8ab-03a4ef25468d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="44"/>
+					<font size="40"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
 			</textField>
 		</band>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
 	</columnHeader>
-	<detail>
-		<band splitType="Stretch"/>
-	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>

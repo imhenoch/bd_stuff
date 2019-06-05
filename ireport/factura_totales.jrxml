@@ -3,7 +3,10 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
+	<parameter name="TRANSACCION" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[100]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[select
     totales.total, totales.iva, totales.subtotal
 from
@@ -15,90 +18,69 @@ from
         inner join transaccion t on t.id_transaccion = tp.id_transaccion
         inner join producto p on tp.id_producto = tp.id_producto
     where
-        t.id_transaccion = 100
+        t.id_transaccion = $P{TRANSACCION}
 ) as totales]]>
 	</queryString>
 	<field name="total" class="java.math.BigDecimal"/>
 	<field name="iva" class="java.math.BigDecimal"/>
 	<field name="subtotal" class="java.math.BigDecimal"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band height="130" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<rectangle radius="5">
-				<reportElement x="308" y="0" width="247" height="130" forecolor="#1976D2" uuid="acd3ba9c-86fa-4d9c-803b-9a7487e93ecc"/>
+				<reportElement x="308" y="0" width="247" height="100" forecolor="#1976D2" uuid="acd3ba9c-86fa-4d9c-803b-9a7487e93ecc"/>
 			</rectangle>
 			<rectangle radius="5">
-				<reportElement x="308" y="0" width="247" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="a63ed678-f445-42dc-abc8-db5270ba5faa"/>
+				<reportElement x="308" y="0" width="247" height="20" forecolor="#1976D2" backcolor="#1976D2" uuid="a63ed678-f445-42dc-abc8-db5270ba5faa"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="308" y="0" width="247" height="29" forecolor="#F5F5F5" uuid="2cf19dd4-4ec3-464c-8f6f-39933ebb7b6b"/>
+				<reportElement x="308" y="0" width="247" height="20" forecolor="#F5F5F5" uuid="2cf19dd4-4ec3-464c-8f6f-39933ebb7b6b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="20" isStrikeThrough="false"/>
+					<font size="16" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="318" y="39" width="66" height="20" forecolor="#212121" uuid="df828f88-9536-43d2-b710-e344ff71c8c1"/>
+				<reportElement x="318" y="25" width="66" height="20" forecolor="#212121" uuid="df828f88-9536-43d2-b710-e344ff71c8c1"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Subtotal]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="384" y="39" width="161" height="20" forecolor="#212121" uuid="49d7b9fc-684d-4a1f-8820-25c4313390e2"/>
+				<reportElement x="384" y="25" width="161" height="20" forecolor="#212121" uuid="49d7b9fc-684d-4a1f-8820-25c4313390e2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["\$ " + $F{subtotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="318" y="70" width="66" height="20" forecolor="#212121" uuid="4af4f84a-d074-40d4-8d76-ba4d6ac371f4"/>
+				<reportElement x="318" y="50" width="66" height="20" forecolor="#212121" uuid="4af4f84a-d074-40d4-8d76-ba4d6ac371f4"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[IVA 16.0%]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="384" y="70" width="161" height="20" forecolor="#212121" uuid="5c0d1d91-be7b-4986-a106-a676121528dc"/>
+				<reportElement x="384" y="50" width="161" height="20" forecolor="#212121" uuid="5c0d1d91-be7b-4986-a106-a676121528dc"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["\$ " + $F{iva}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="318" y="100" width="66" height="20" forecolor="#212121" uuid="6c320793-2549-43bd-8cd9-20782e5cf097"/>
+				<reportElement x="318" y="75" width="66" height="20" forecolor="#212121" uuid="6c320793-2549-43bd-8cd9-20782e5cf097"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="384" y="100" width="161" height="20" forecolor="#212121" uuid="f5203bda-a5dd-407b-8b0c-df18dd2f21b7"/>
+				<reportElement x="384" y="75" width="161" height="20" forecolor="#212121" uuid="f5203bda-a5dd-407b-8b0c-df18dd2f21b7"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA["\$ " + $F{total}]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
+	</columnHeader>
 </jasperReport>

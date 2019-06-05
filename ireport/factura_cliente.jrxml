@@ -49,81 +49,63 @@ where
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band height="138" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<rectangle radius="5">
-				<reportElement x="0" y="0" width="283" height="138" forecolor="#1976D2" uuid="e7e28c7b-ec94-4c42-a06b-a19a9d901118"/>
+				<reportElement x="0" y="0" width="283" height="105" forecolor="#1976D2" uuid="e7e28c7b-ec94-4c42-a06b-a19a9d901118"/>
 			</rectangle>
 			<rectangle radius="5">
-				<reportElement x="0" y="0" width="283" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="a4774783-1b51-4b7c-aa21-2d276263fa31"/>
+				<reportElement x="0" y="0" width="283" height="20" forecolor="#1976D2" backcolor="#1976D2" uuid="a4774783-1b51-4b7c-aa21-2d276263fa31"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="283" height="29" forecolor="#F5F5F5" uuid="a51fe1bb-db94-469b-bcdd-dd1b1b678269"/>
+				<reportElement x="0" y="0" width="283" height="20" forecolor="#F5F5F5" uuid="a51fe1bb-db94-469b-bcdd-dd1b1b678269"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="20" isStrikeThrough="false"/>
+					<font size="16" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="40" width="128" height="20" forecolor="#212121" uuid="997e5ba7-aa5b-440e-bba1-a94a2fc29078"/>
+				<reportElement x="12" y="25" width="128" height="20" forecolor="#212121" uuid="997e5ba7-aa5b-440e-bba1-a94a2fc29078"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Nombre o razon social:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="40" width="134" height="20" forecolor="#212121" uuid="1816241c-f905-412a-bf28-1862c3914e27"/>
+				<reportElement x="140" y="25" width="134" height="20" forecolor="#212121" uuid="1816241c-f905-412a-bf28-1862c3914e27"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{razon_social}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="71" width="128" height="20" forecolor="#212121" uuid="4bc1d5df-616e-4531-b718-fe83e3a4bd0b"/>
+				<reportElement x="12" y="52" width="128" height="20" forecolor="#212121" uuid="4bc1d5df-616e-4531-b718-fe83e3a4bd0b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[RFC del cliente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="71" width="134" height="20" forecolor="#212121" uuid="8e35d69e-399d-41b6-bd12-bf2325f788f7"/>
+				<reportElement x="140" y="52" width="134" height="20" forecolor="#212121" uuid="8e35d69e-399d-41b6-bd12-bf2325f788f7"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="10" y="105" width="128" height="20" forecolor="#212121" uuid="7c8cf8e8-d71d-4edb-b5cd-b84cc0d4b58c"/>
+				<reportElement x="12" y="78" width="128" height="20" forecolor="#212121" uuid="7c8cf8e8-d71d-4edb-b5cd-b84cc0d4b58c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Uso CFDI cliente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="138" y="105" width="134" height="20" forecolor="#212121" uuid="97e32b35-c129-4861-8e69-9e200e2fd916"/>
+				<reportElement x="140" y="78" width="134" height="20" forecolor="#212121" uuid="97e32b35-c129-4861-8e69-9e200e2fd916"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cfdi} + " - " + $F{descripcion}]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
+	</columnHeader>
 </jasperReport>

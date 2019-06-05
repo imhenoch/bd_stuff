@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_detalles" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7e0713c3-874e-4c9e-b753-1c9659c6d930">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#212121"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#212121"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#1976D2">
+		<box>
+			<pen lineWidth="0.5" lineColor="#212121"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#212121"/>
+		</box>
+	</style>
+	<subDataset name="detalles" uuid="96589582-bfd4-4d82-854a-3ff3c0ae7c20">
+		<queryString language="SQL">
+			<![CDATA[select
+    p.producto, tp.cantidad, tp.precio_final
+from
+    transaccion_producto tp
+    inner join transaccion t on t.id_transaccion = tp.id_transaccion
+    inner join producto p on p.id_producto = tp.id_producto
+where
+    t.id_transaccion = 100]]>
+		</queryString>
+		<field name="producto" class="java.lang.String"/>
+		<field name="cantidad" class="java.math.BigDecimal"/>
+		<field name="precio_final" class="java.math.BigDecimal"/>
+	</subDataset>
+	<parameter name="TRANSACCION" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[100]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    p.producto, tp.cantidad, tp.precio_final
+from
+    transaccion_producto tp
+    inner join transaccion t on t.id_transaccion = tp.id_transaccion
+    inner join producto p on p.id_producto = tp.id_producto
+where
+    t.id_transaccion = $P{TRANSACCION}]]>
+	</queryString>
+	<field name="producto" class="java.lang.String"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="precio_final" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="215">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="215" uuid="b8d95e7c-bbc1-48bf-a54f-ca1590b7dc4b"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="detalles" uuid="57e690ea-0ce6-4d97-9be1-1e79d8d24872">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="287" uuid="076b536c-3f5e-4e77-a376-8deaf9856a1a">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="287" height="30" forecolor="#F5F5F5" uuid="9f286471-d990-4b7d-9951-ab65c17494b1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Producto]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="11" y="0" width="265" height="27" forecolor="#212121" uuid="89d6b0fd-78b9-468c-a352-809a2d4331e6"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{producto}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="128" uuid="ca7f08b9-3f7d-4a88-9dbb-f2e889924b55">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="128" height="30" forecolor="#F5F5F5" uuid="b7901736-d35a-4594-b963-f88744a409f1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="10" y="0" width="108" height="27" forecolor="#212121" uuid="c24c15ae-c388-43e1-b121-ae92404a98b8"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA["\$ " + $F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="140" uuid="20f0ca48-baba-4810-8d31-a004fe3f0870">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="30" forecolor="#F5F5F5" uuid="c295a68c-2771-423b-8d22-a0e54a755c35"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<text><![CDATA[Precio final]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="27" rowSpan="1">
+							<textField>
+								<reportElement x="10" y="0" width="120" height="27" forecolor="#212121" uuid="e71670bd-edd6-4c0f-be2a-94f03a7773f4"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="11"/>
+								</textElement>
+								<textFieldExpression><![CDATA["\$ " + $F{precio_final}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+</jasperReport>

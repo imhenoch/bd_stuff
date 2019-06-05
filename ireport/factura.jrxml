@@ -3,6 +3,9 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/henoch/Documents/university/semestre10/bd_stuff/ireport/"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select empresa from mssql_empresa where empresa_id = 1]]>
 	</queryString>
@@ -11,8 +14,8 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<rectangle>
+		<band height="92" splitType="Stretch">
+			<rectangle radius="5">
 				<reportElement x="0" y="0" width="555" height="79" forecolor="#1976D2" backcolor="#1976D2" uuid="d95499c5-3a00-4e18-839d-f53ef53e9a30"/>
 			</rectangle>
 			<textField>
@@ -25,13 +28,19 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="125" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="349" height="125" uuid="416a0978-01f8-45bd-a52e-0d52af5909ef"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "factura_cliente.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

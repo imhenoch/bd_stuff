@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura_cliente" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f08e7404-3c6b-4ecd-a3e6-806981a78e38">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#73B0E6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CFDBE6">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="13bd20e5-7d59-4dca-a94a-760f3eb38f80"/>
+	<parameter name="TRANSACCION" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[100]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    c.rfc, c.razon_social, c.domicilio, cfdi.cfdi, cfdi.descripcion
+from
+    admin.cliente c
+    inner join admin.factura f on c.rfc = f.rfc
+    inner join admin.cfdi cfdi on f.cfdi = cfdi.cfdi
+where
+    f.id_factura = $P{TRANSACCION}]]>
+	</queryString>
+	<field name="rfc" class="java.lang.String"/>
+	<field name="razon_social" class="java.lang.String"/>
+	<field name="domicilio" class="java.lang.String"/>
+	<field name="cfdi" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="138" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement x="0" y="0" width="555" height="138" forecolor="#1976D2" uuid="e7e28c7b-ec94-4c42-a06b-a19a9d901118"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement x="0" y="0" width="555" height="29" forecolor="#1976D2" backcolor="#1976D2" uuid="a4774783-1b51-4b7c-aa21-2d276263fa31"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="29" forecolor="#F5F5F5" uuid="a51fe1bb-db94-469b-bcdd-dd1b1b678269"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="40" width="128" height="20" forecolor="#212121" uuid="997e5ba7-aa5b-440e-bba1-a94a2fc29078"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre o razon social:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="40" width="405" height="20" forecolor="#212121" uuid="1816241c-f905-412a-bf28-1862c3914e27"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{razon_social}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="71" width="128" height="20" forecolor="#212121" uuid="4bc1d5df-616e-4531-b718-fe83e3a4bd0b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[RFC del cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="71" width="405" height="20" forecolor="#212121" uuid="8e35d69e-399d-41b6-bd12-bf2325f788f7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="105" width="128" height="20" forecolor="#212121" uuid="7c8cf8e8-d71d-4edb-b5cd-b84cc0d4b58c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Uso CFDI cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="138" y="105" width="405" height="20" forecolor="#212121" uuid="97e32b35-c129-4861-8e69-9e200e2fd916"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cfdi} + " - " + $F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

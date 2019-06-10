@@ -13,11 +13,13 @@ import com.github.imhenoch.bills.R
 import com.github.imhenoch.bills.api.ApiService
 import com.github.imhenoch.bills.data.*
 import com.github.imhenoch.bills.databinding.BillRegisterBinding
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class BillRegister : Fragment() {
     private lateinit var binding: BillRegisterBinding
@@ -27,6 +29,14 @@ class BillRegister : Fragment() {
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl("http://${BuildConfig.IP}:${BuildConfig.PORT}")
+            .client(
+                OkHttpClient
+                    .Builder()
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .build()
+            )
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -77,6 +87,7 @@ class BillRegister : Fragment() {
         bill = Bill(client.rfc, Integer.parseInt(binding.etTransaction.text.toString()))
         api.rfcExists(client).enqueue(object : Callback<RfcExists> {
             override fun onFailure(call: Call<RfcExists>, t: Throwable) {
+                t.printStackTrace()
                 initState()
             }
 
@@ -130,7 +141,7 @@ class BillRegister : Fragment() {
             }
 
             override fun onResponse(call: Call<Result>, response: Response<Result>) {
-                api.generateBill(bill.trasaction).enqueue(object: Callback<Result> {
+                api.generateBill(bill.trasaction).enqueue(object : Callback<Result> {
                     override fun onFailure(call: Call<Result>, t: Throwable) {
                         initState()
                     }

@@ -41,81 +41,43 @@ values
     (10001, 1208, 90);
 
 
-select
-    i.id_personal as id_employee,
-    extract(year from fecha_fin) as year,
-    count(*) course_quantity,
-    sum(case when i.calificacion > 70 then 1 else 0 end) as passed_courses
-from
-    inscripcion i
-    inner join imparte im on im.id_imparte=i.id_imparte
-group by year, id_employee order by i.id_personal asc limit 30;
 
+create view view_empleado_curso_nomina as
+    select 
+        i.id_personal as id_employee,
+        extract(year from fecha_fin) as year,
+        count(*) course_quantity,
+        sum(case when i.calificacion > 70 then 1 else 0 end) as passed_courses,
+        (
+            select
+                count(distinct id_imparte)
+            from
+                rh.personal p
+                inner join rh.imparte im on p.id_personal = im.id_personal
+            where
+                im.id_personal = i.id_personal
+            group by
+                im.id_personal
+        ) as instructor
+    from
+        rh.inscripcion i
+        inner join rh.imparte im on im.id_imparte = i.id_imparte
+    group by
+        year, id_employee
+    order by
+        i.id_personal asc;
 
-select
-    i.id_personal as id_employee,
-    extract(year from fecha_fin) as year,
-    count(*) course_quantity,
-    sum(case when i.calificacion > 70 then 1 else 0 end) as passed_courses
-from
-    inscripcion i
-    inner join imparte im on im.id_imparte=i.id_imparte
-where 
-    i.id_personal=10001 group by year, id_employee order by i.id_personal asc limit 30;
-
-
-select
-    i.id_personal as id_employee,
-    extract(year from fecha_fin) as year,
-    count(*) course_quantity,
-    sum(case when i.calificacion > 70 then 1 else 0 end) as passed_courses,
-    (
-        select
-            count(distinct id_diplomado)
-        from
-            inscripcion i2
-            inner join imparte im on i2.id_personal=im.id_personal
-            inner join curso_diplomado cd on im.id_curso=cd.id_curso
-        where 
-            i2.id_personal=i.id_personal group by cd.id_diplomado
-    ) as certified_quantity
-from
-    inscripcion i
-    inner join imparte im on im.id_imparte=i.id_imparte
-where 
-    i.id_personal=10001 group by year, id_employee order by i.id_personal asc limit 30;
-
-
-
-
-
-select
-    i.id_personal as id_employee,
-    extract(year from fecha_fin) as year,
-    count(*) course_quantity,
-    sum(case when i.calificacion > 70 then 1 else 0 end) as passed_courses,
-    (
-        select
-            count(distinct id_diplomado)
-        from
-            inscripcion i2
-            inner join imparte im on i2.id_personal=im.id_personal
-            inner join curso_diplomado cd on im.id_curso=cd.id_curso
-        where 
-            i2.id_personal=i.id_personal group by cd.id_diplomado
-    ) as certified_quantity
-from
-    inscripcion i
-    inner join imparte im on im.id_imparte=i.id_imparte
-where 
-    i.id_personal=10001 group by year, id_employee order by i.id_personal asc limit 30;
-
-
-
-select
-    count(*) as certified_courses_quantity,
-
-from
-    curso_diplomado
-where
-    id_diplomado=101;
+create table fact_empleado_nomina as
+    select
+        id_employee,
+        year,
+        sum(course_quantity) as course_quantity,
+        sum(passed_courses) as passed_courses,
+        sum(instructor) as instructor,
+        sum((passed_courses * 500) + (instructor * 2000)) as bonus
+    from
+        view_empleado_curso_nomina
+    group by
+        1, 2
+    order by
+        1, 2;
